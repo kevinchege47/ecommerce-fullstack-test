@@ -1,6 +1,6 @@
 # Cymelle Technologies — Full-Stack Assessment
 
-> **Stack:** Java 17 + Spring Boot 3.2 (backend) · React 18 + Tailwind CSS 3 (frontend)  
+> **Stack:** Java 17 + Spring Boot 4.1.0 (backend) · React 18 + Tailwind CSS 3 (frontend)  
 > **Database:** H2 in-memory (auto-seeded on startup)
 
 ---
