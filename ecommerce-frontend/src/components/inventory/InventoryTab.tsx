@@ -64,6 +64,7 @@ export default function InventoryTab() {
           </button>
           <button
             onClick={() => setFilter('low')}
+            aria-label="Filter low stock"
             className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors
               ${filter === 'low'
                 ? 'bg-red-600 text-white shadow-sm'
@@ -101,7 +102,7 @@ export default function InventoryTab() {
           <span>
             <strong>{lowCount} item{lowCount > 1 ? 's' : ''}</strong> below the low-stock
             threshold.{' '}
-            <button onClick={() => setFilter('low')} className="underline font-medium">
+            <button onClick={() => setFilter('low')} className="underline font-medium" aria-label="Switch to low stock view">
               Low stock
             </button>{' '}
             view to act.

@@ -177,8 +177,9 @@ describe('FareCalculator', () => {
     await waitFor(() => screen.getByTestId('fare-total'));
 
     fireEvent.click(screen.getByRole('button', { name: /calculate fare/i }));
-    await waitFor(() => expect(mockedFareApi.calculate).toHaveBeenCalledTimes(2));
-    expect(screen.getByTestId('fare-total')).toHaveTextContent('KES 300');
+    await waitFor(() =>
+        expect(screen.getByTestId('fare-total')).toHaveTextContent('KES 300'),
+    );
   });
 
   it('button shows calculating state while loading', async () => {

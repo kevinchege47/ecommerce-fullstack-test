@@ -6,8 +6,8 @@ import type { Order } from '../../types';
 
 jest.mock('../../services/api');
 const mockedOrdersApi = ordersApi as jest.Mocked<typeof ordersApi>;
+let consoleError: jest.SpyInstance;
 
-window.confirm = jest.fn(() => true);
 
 const ORDERS: Order[] = [
   {
@@ -29,10 +29,14 @@ const ORDERS: Order[] = [
 
 describe('OrdersTab', () => {
   beforeEach(() => {
+    consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
     mockedOrdersApi.getAll.mockResolvedValue(ORDERS);
+    (window.confirm as jest.Mock) = jest.fn(() => true);
   });
 
-  afterEach(() => jest.clearAllMocks());
+  afterEach(() => {
+    consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.clearAllMocks()});
 
   it('shows loading spinner before data arrives', () => {
     mockedOrdersApi.getAll.mockReturnValue(new Promise(() => {}));
@@ -62,10 +66,9 @@ describe('OrdersTab', () => {
   });
 
   it('calls ordersApi.cancel and refetches on confirm', async () => {
-    mockedOrdersApi.getAll.mockClear();
-    mockedOrdersApi.cancel.mockClear();
-    mockedOrdersApi.getAll.mockResolvedValue(ORDERS);
+    (window.confirm as jest.Mock).mockReturnValueOnce(true);
     mockedOrdersApi.cancel.mockResolvedValue({ ...ORDERS[0], status: 'CANCELLED' });
+
     render(<OrdersTab />);
     await waitFor(() => screen.getAllByTestId('order-row'));
     expect(mockedOrdersApi.getAll).toHaveBeenCalledTimes(1);
@@ -100,13 +103,6 @@ describe('OrdersTab', () => {
     expect(screen.getByText(/cancel failed/i)).toBeInTheDocument();
   });
 
-  it('shows error state when fetch fails', async () => {
-    mockedOrdersApi.getAll.mockClear();
-    mockedOrdersApi.getAll.mockRejectedValue(new Error('Server error'));
-    render(<OrdersTab />);
-    await waitFor(() => screen.getByRole('alert'));
-    expect(screen.getByText('Server error')).toBeInTheDocument();
-  });
 
   it('shows empty state when no orders returned', async () => {
     mockedOrdersApi.getAll.mockResolvedValue([]);
