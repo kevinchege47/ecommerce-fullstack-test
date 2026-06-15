@@ -103,7 +103,7 @@ mvn test
 
 ## Configuration
 
-`backend/src/main/resources/application.properties`
+`ecommerce-backend/src/main/resources/application.properties`
 
 | Key | Default | Description |
 |-----|---------|-------------|
