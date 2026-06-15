@@ -9,11 +9,11 @@
 
 ### Prerequisites
 | Tool | Minimum version |
-|------|----------------|
-| JDK  | 17             |
-| Maven | 3.8+          |
-| Node | 18+            |
-| npm  | 9+             |
+|------|-----------------|
+| JDK  | 17              |
+| Maven | 3.8+            |
+| Node | 20+             |
+| npm  | 9+              |
 
 ### 1 — Backend
 
@@ -32,11 +32,23 @@ cd ecommerce-frontend
 npm install
 npm start
 ```
+### 3 -  Running unit tests for frontend 
+
+```bash
+cd ecommerce-frontend
+npm test
+```
+### 4 - Running unit tests for backend
+
+```bash
+cd ecommerce-backend
+mvn test
+```
 
 Dashboard at **http://localhost:3000**  
 The React dev server proxies `/orders`, `/inventory`, `/fare` to `http://localhost:8080` (configured in `package.json`).
 
-### 3 — Run unit tests
+### 4 — Run unit tests
 
 ```bash
 cd ecommerce-backend
